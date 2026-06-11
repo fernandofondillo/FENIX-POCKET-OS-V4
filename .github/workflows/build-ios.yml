@@ -59,16 +59,16 @@ jobs:
 
       - name: Package .app into .ipa (no signing)
         run: |
-          # Crea estructura Payload/
+          # Estructura iOS correcta: Payload/Runner.app/...
           rm -rf Payload
           mkdir -p Payload
           cp -R build/ios/iphoneos/Runner.app Payload/
-          # IPA = zip con estructura Payload/
-          cd Payload
-          zip -r ../fenix-pocket-os-unsigned.ipa Runner.app
-          cd ..
+          # IPA = zip DESDE EL DIRECTORIO PADRE para que los paths incluyan "Payload/"
+          zip -r fenix-pocket-os-unsigned.ipa Payload
           ls -lah fenix-pocket-os-unsigned.ipa
-          echo "✅ IPA created without code signing (Sideloadly will sign it on CEO Mac)"
+          echo "--- Verificar estructura ---"
+          unzip -l fenix-pocket-os-unsigned.ipa | head -10
+          echo "✅ IPA con estructura iOS estándar (Sideloadly-ready)"
 
       - name: Upload .ipa artifact (7 days)
         uses: actions/upload-artifact@v4
