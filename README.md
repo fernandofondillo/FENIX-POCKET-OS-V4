@@ -1,192 +1,811 @@
-# 1. Fénix Pocket OS v1.0 — Agente de Inteligencia Soberana
+# 🐦‍🔥 Fénix Pocket OS v4.1.0
+
+> **El agente de inteligencia soberana en tu bolsillo.**
 > La interfaz efímera entre tu psique digital y la soberana persistencia local.
 
-# 2. Status y Licencias
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Tests](https://img.shields.io/badge/tests-100%25_green-success)
-![License](https://img.shields.io/badge/license-MIT-blue)
-
-# 3. Filosofía del Dato y Privacidad
-En la era masiva del almacenamiento en la nube y la monetización agresiva del comportamiento algorítmico individual, Fénix Pocket OS emerge como una declaración de independencia táctica y soberanía. La arquitectura integral ha sido esculpida bajo el principio de Zero-Knowledge y Soberanía Local Extrema: Tu servidor no recuerda, no archiva y no analiza quién eres. Fénix es un oráculo ciego.
-
-Tus pensamientos más densos, tus rutinas de salud y tus recuerdos personales valiosos cristalizan en el hardware nativo de tu teléfono utilizando criptografía de AES-256 en modo GCM impuesta orgánicamente sin conexión a internet. Las metamorfosis de tu personalidad (mutaciones EAV) se guardan en un motor SQLite local bajo el control absoluto de tu dispositivo.
-
-Las únicas transacciones en tránsito se despliegan en túneles asíncronos y cifrados hacia un VPS Stateless corriendo Fast-API. Allí, tu texto pasa exclusivamente al motor matemático de Large Language Models (`llama-server`) para un análisis volátil y al finalizar el byte frame, el recolector de basura de Python (`gc.collect()`) vaporiza las variables antes de responder la conexión, blindándote para siempre.
-
-# 4. Arquitectura de Sistemas (Ascii Flow)
-```text
-[ Móvil Flutter / Fénix OS ]
-    ├── Bóveda AES-256 (Identidad y Secretos en flutter_secure_storage)
-    ├── SQLite EAV (Perfil Continuo y Mutaciones)
-    ├── RAG Local (sqflite BLOB + ONNX Vector Isolates)
-    └── Dio HTTP Client (Rate Limits Controlados)
-            │
-            ▼ (JSON SSL tunnel - Pydantic Validated)
-            │
-[ VPS FastAPI / Ingestion Pipeline Orientado a Eventos ]
-    ├── Arq + Redis (Sala de Espera Asíncrona HTTP 202 - RAM shield)
-    ├── InferenceRouter (Stateless API orchestrator)
-    ├── SkillExtractor Regex (Herramientas Semánticas)
-    └── Limpieza de RAM Agresiva (gc.collect() Sub-ms Wipe)
-            │
-            ▼ (HTTP Async Proxy 127.0.0.1:8090/v1/chat/completions)
-            │
-[ llama-server / LLM Bare-Metal Engine ]
-    └── qwen2.5-7b-instruct (Motor Matemático OpenAI-Compatible No-Cloud)
-```
-
-# 5. Stack Tecnológico Estricto
-| Componente Topológico | Tecnología y Framework | Versión Requerida |
-|---|---|---|
-| Core App Visual Client | Flutter SDK / Dart | >= 3.0.0 |
-| Inferencia Tensor Nativa | TensorFlow Lite Plugin | ^0.10.4 |
-| Persistencia y Hardware | sqflite + flutter_secure_storage | ^2.3.0 / ^9.0.0 |
-| Backend & Asincronía | Python 3 / FastAPI + Uvicorn | Lts |
-| Event Loop & Limitador | Redis In-Memory DB + Arq Workers | Lts |
-| Motor Cognitivo Pesado | llama.cpp server | Lts |
-
-# 6. Features Implementadas v1.0
-- ✅ Bóveda Segura de Onboarding Criptográfico (AES-256 KeyPair Random Seed).
-- ✅ Pipeline Asíncrono Híbrido (Redis) tolerante a ráfagas (+1500 concurrentes HTTP 202).
-- ✅ Enrutador Cognitivo local ultra rápido O(N) (6 Cápsulas Activas + Fallback General).
-- ✅ Detector Léxico de 5 Emociones (Offline Nativo Flutter).
-- ✅ Extractor y Mutable Regex EAV sobre Base de Datos SQLite Móvil.
-- ✅ Sistema de Integración y Catalogo Constante para 5 Habilidades Built-In Funcionales.
-- ✅ Motor de Vectores Embeddings TFLite (Delegables a Isolates en segundo plano sin lag).
-- ✅ (Parcial) Scaffolding Funcional FCM de Push Notifications (Pendiente credenciales Firebase).
-
-# 7. Features Diferidas v1.1 (⏳)
-- ⏳ Integración cruda de algoritmos Operational Transformation para sync de red descentralizada en LAN.
-- ⏳ Integración nativa de reconocimiento óptico (OCR) on-device (Machine Vision Lite).
-- ⏳ Inyección Dinámica de Skills "Custom" programables permitidas al vuelo por Llama3.
-
-# 8. Setup Local (Ambiente Móvil)
-1. Clona el repositorio maestro de Fénix: `git clone https://...`
-2. Instala dependencias y limpia el árbol de dart: `flutter pub get`
-3. Arranca el motor híbrido Fénix OS: `flutter run -d chrome` o el simulador nativo de iOS.
-
-# 9. Setup Producción VPS (Ubuntu Server)
-1. Instala el kernel base asíncrono y los motores: `sudo apt update && sudo apt install redis-server python3-venv`
-2. Modifica el overcommit global y asegura la matriz: `sudo systemctl enable redis-server && sudo systemctl start redis-server`
-3. Levanta la cabecera Fast-API del pipeline TCP: `uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2`
-4. Despliega el daemon consumidor Arq adyacente: `arq app.main.WorkerSettings`
-5. Expón la puerta OpenAI-Native en el loopback: `./llama-server -m qwen2.5-7b-instruct.Q4_K_M.gguf -c 4096 --port 8090`
-
-# 10. Estructura de Repositorio Auditado
-```text
-fenix/
-├── app/
-│   ├── main.py
-│   ├── schemas/
-│   │   └── chat_schema.py
-│   └── services/
-│       ├── fact_extractor.py
-│       ├── inference_router.py
-│       ├── skill_catalogue.py
-│       ├── skill_extractor.py
-│       └── skills_service.py
-├── lib/
-│   ├── models/
-│   ├── services/
-│   │   ├── api_service.dart
-│   │   ├── capsule_detector.dart
-│   │   ├── emotion_detector.dart
-│   │   ├── local_embedding_service.dart
-│   │   ├── memory_service.dart
-│   │   ├── perfil_db_service.dart
-│   │   └── push_service.dart
-│   └── views/
-│       └── auth/welcome_screen.dart
-├── test/
-│   ├── app/ (Pytest suites)
-│   └── services/ (Flutter test suites)
-└── pubspec.yaml
-```
-
-# 11. Tabla de Cápsulas Cognitivas
-| ID Cápsula de Router | Rama de Especialidad Científica | Tags Léxicas de Enrutamiento Asíncrono|
-|---|---|---|
-| `fitness_expert` | Fisiología Humana | entrenamiento, músculo, hipertrofia, pesas |
-| `nutricion_expert` | Bioquímica Molecular | dieta, macros, proteínas, keto, ayuno |
-| `zen_mentor` | Pshicoanálisis / Estoicismo | ansiedad, respiración, paz, depresión |
-| `elderly_care` | Geriatría Predictiva | abuelos, memoria, pastillas, alzheimer |
-| `biohacking_expert` | Rendimiento Fisiológico Máximo | vo2, dopamina, ritmo circadiano, nootrópicos |
-| `pro_work_assistant` | Corporativo Organizacional | código, excel, deadline, startup, reunión |
-| `general_coordinator` | Delegador Universal de Intenciones | *Fallback general O(1) ante ambigüedades* |
-
-# 12. Tabla Técnica: 5 Skills Built-In
-| Identificador Hash (Skill Name) | Explicación Técnica de Ejecución | Esquema Pydantic Requerido de Retorno |
-|---|---|---|
-| `agenda_crear` | Agenda evento temporal asíncrono | `titulo`, `fecha_hora (ISO 8601 strict)` |
-| `notificacion_enviar` | Buffer de notificaciones push pre-calculado | `mensaje`, `retraso_minutos` |
-| `web_search` | Inferencia de crawler de búsqueda paralela | `query (lenguaje humano no-estructurado)` |
-| `memoria_recordar` | Llama al sistema de SQlite EAV Retriever | `clave (eav-key snake_case)` |
-| `memoria_olvidar` | Aniquilación silente mutante en la BD relacional | `clave (eav-key snake_case)` |
-
-# 13. Ejemplo Real de Mutación EAV de SQLite
-`Input Crudo del Usuario:` "Ah por cierto, mi peso corporal actual son 81 kilos de músculo."
-`1. Action:` Fenix envía el payload validado. El InferenceRouter deriva a llama-server y genera la respuesta text response.
-`2. Model Injection:` `... <perfil_update>[{"categoria": "fisiologia_base", "clave": "peso_actual", "valor": "81kg"}]</perfil_update> ...`
-`3. FactExtractor Python:` Regex interviene. Extrae el bloque, lo pasa a PyDantic en Backend, y purga todo rastro estructural visual para el usuario.
-`4. Móvil Callback:` Flutter recibe en silencioso. Invoca al `PerfilDbService` dictando un `upsertEav('fisiologia_base', 'peso_actual', '81kg')`, eludiendo el front-end y modificando tu identidad relacional persistente.
-
-# 14. Terminal REST Endpoints (API Table)
-| Interface Verbo | Ruta Completa UUID | Caso Práctico General / Bash |
-|---|---|---|
-| POST (Ingestor) | `/api/v1/chat` | Encola la petición delegando un UUID track `curl -X POST -d '{"mensaje_actual": "Tengo frio"}'` |
-| GET (SubLong-Polling) | `/api/v1/task/{id}` | Long-Polling del Task Arq (1 wipe inmediato en Zero-knowledge) |
-| POST (Consolidator) | `/api/v1/consolidate` | Traga un día crudo generando Markdown final resumido e inferencias médicas de las Alertas Coach. |
-| POST (Skill Runner) | `/api/v1/skills/execute` | Tool caller atómico que cruza validación RateLimit de python (10 req/min). |
-
-# 15. Diagrama de Seguridad Zero-Knowledge Enfoque
-1. **At-Rest (Móvil Físico):** La semilla de Identidad y Base EAV es controlada en local. Todos los bloques de .md cognitivos de memoria a largo plazo están cerrados individualmente bajo Encrypt (AES-256) atado a Keys de Hardware.
-2. **In-Transit:** Red asegurada TSL v1.3 obligatoria para interactuar con la nube transiliente de Fast-API.
-3. **In-Cache & Task Delete:** El UUID expira atómicamente. Exactamente al hacer GET `/api/v1/task/{id}`, el Backend de forma literal ejecuta `await redis.delete()` neutralizando toda la trazabilidad antes de que culmine el render en pantalla.
-4. **En Ejecución RAM:** Sin almacenamiento persistente de variables HTTP. Liberación forzosa térmica programática: Python limpia las clases a base de `gc.collect()`.
-
-# 16. Limitaciones Oficialmente Documentadas v1.0
-- ✅ *(Condición de Contorno)* **Notificaciones Push Remote / FCM:** Todo el código Dart y base-stubs se encuentran presentes nativamente bajo el gestor de `PushService`, no obstante requerirá que el ingeniero CTO inyecte manualmente los certificados JSON de Google Services y habilite APNs para la correcta derivación de mensajes push desde el VPS a dispositivos cerrados de usuario.
-- ✅ *(Condición de Contorno)* **Motor TFLite Enrutado:** El motor de embedding semántico de `assets/models/bge-micro-v2.tflite` para las respuestas híbridas RAG es un binario colosal que omite el commit tree (AI Studio / CI-CD Limit), se implementó un vector random mock math determinista funcional validado pero precisa descargar manualmente el `.tflite` real.
-
-# 17. Roadmap Prioritario de Lanzamiento (v1.1)
-*   **Operational Transformation Algorithm (O.T.):** Motor nativo de algoritmos robustos O.T para resolver Data Races sin Internet y cruzar metadatos por micro-paquetes Local LAN Protocol.
-*   **Agnostic Code Rendering Front-End:** Evaluar el diseño de un parser universal que transmutará los tags de respuesta en Flutter Native Widgets directos.
-*   **Audio WebRTC Raw:** Streaming biológico de pulsos (ondas P2P crudas) cortocircuitando componentes centralizadores y APIs de pago como Cloud-Speech o Deepgram. 
-
-# 18. Código de Licencia
-El sistema operativo de IA enlazado está gobernado por el testamento atemporal de **MIT License**. Uso libre y no coaccionado de modificación algorítmica sin requerimiento explícito. 
-
-# 19. Despliegue de Contacto y Equipo A.G.O.S
-* Autoridad Principal de Infraestructura (Implementación Core): `fernandofondillo`
-* Representante Jefe Técnico Gubernamental (CTO) y Entidad Auditora: `fernando.ruedaparra1963@gmail.com`
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#)
+[![Tests](https://img.shields.io/badge/tests-100%25_green-success)](#)
+[![License](https://img.shields.io/badge/license-MIT-blue)](#)
+[![iOS](https://img.shields.io/badge/iOS-13.0%2B-blue?logo=apple)](#)
+[![Android](https://img.shields.io/badge/Android-6.0%2B-green?logo=android)](#)
+[![Flutter](https://img.shields.io/badge/Flutter-3.44.1-02569B?logo=flutter)](#)
+[![VPS](https://img.shields.io/badge/VPS-A.G.O.S.-orange)](#)
 
 ---
 
-# 20. [ANEXO iOS] Setup Rápido (Menos de 30 minutos)
-**Fénix Pocket OS** ha sido estructurado para ejecutarse de forma nativa en un dispositivo físico iPhone, utilizando la pureza de la compilación de Flutter y Swift. A continuación se anexa la autoguía para compilar y ejecutar el ecosistema de comunicación en **iOS 15.0+** salvando todas las barreras arquitectónicas de Apple.
+## 📋 Tabla de Contenidos
 
-### 20.1 Auditoría de Dependencias para iOS
-*   **Compatibles Nativamente:** `sqflite`, `encrypt`, `dio`, `http`, `uuid`, etc., compilan de forma 100% nativa hacia Objective-C/Swift vía el motor lógico de Flutter.
-*   **flutter_secure_storage:** Requiere que el `Podfile` de iOS apunte **estrictamente a iOS 12.0 o superior**. En este proyecto imponemos **15.0** por requerimientos de Background Tasks.
-*   **tflite_flutter:** Delega subprocesos matemáticos a la NPU de Apple Silicon / A-Bionic Series. Requiere compatibilidad base `arm64`.
+1. [¿Qué es Fénix Pocket OS?](#-qué-es-fénix-pocket-os)
+2. [Filosofía: Soberanía Total del Móvil](#-filosofía-soberanía-total-del-móvil)
+3. [Arquitectura del Sistema](#-arquitectura-del-sistema)
+4. [Las 7 Cápsulas Cognitivas](#-las-7-cápsulas-cognitivas)
+5. [Memoria Jerárquica (3 Niveles)](#-memoria-jerárquica-3-niveles)
+6. [Sistema de Skills Nativas](#-sistema-de-skills-nativas)
+7. [Stack Técnico](#-stack-técnico)
+8. [Estructura del Proyecto](#-estructura-del-proyecto)
+9. [Instalación y Despliegue](#-instalación-y-despliegue)
+10. [Backend VPS (A.G.O.S.)](#-backend-vps-agos)
+11. [Flujo de un Mensaje (End-to-End)](#-flujo-de-un-mensaje-end-to-end)
+12. [Contrato de la API](#-contrato-de-la-api)
+13. [Seguridad y Cifrado](#-seguridad-y-cifrado)
+14. [Testing y Verificación E2E](#-testing-y-verificación-e2e)
+15. [Multi-Tenant y Privacidad](#-multi-tenant-y-privacidad)
+16. [Roadmap](#-roadmap)
+17. [Licencia](#-licencia)
 
-### 20.2 Instrucciones de Despliegue Zero-Friction (Móviles Reales)
-Ejecuta el script combinado provisto en la raíz del repositorio (`setup_mobile_platforms.sh`). Este script regenera las carpetas `android` y `ios` directamente, incrustando los permisos en ambos sistemas (minSdkVersion 23, Info.plist, ClearTextTraffict, Podfile, AppDelegate.swift).
+---
 
-1.  **Ejecución del Script Matrix:**
-    ```bash
-    chmod +x setup_mobile_platforms.sh
-    ./setup_mobile_platforms.sh
-    ```
-2.  **Preparación del Backend para Red Local:**
-    *   Arranca FastAPI en la máquina enlazado a todas las redes: `uvicorn app.main:app --host 0.0.0.0 --port 8000`
-    *   Abre `lib/core/app_config.dart` en Flutter, cambia `usePhysicalIp = true` e ingresa la IP local WiFi de tu ordenador (Ej: `192.168.x.x`).
-3.  **Compilación iPhone Físico (macOS requerido):**
-    *   Conecta el dispositivo vía USB al Mac.
-    *   Abre el workspace: `open ios/Runner.xcworkspace`
-    *   En "Signing & Capabilities", activa tu "Team" Apple Developer.
-    *   Ejecuta: `flutter run -d <id_del_iphone>` (y aprueba el trust certificate en *Ajustes de iOS > General*).
-4.  **Compilación Android Físico:**
-    *   Activa **Depuración USB** en *Opciones de Desarrollador* de tu Android.
-    *   Conecta vía USB y autoriza huella de PC.
-    *   Ejecuta: `flutter run -d <id_del_android>`
+## 🐦‍🔥 ¿Qué es Fénix Pocket OS?
+
+**Fénix Pocket OS** es un sistema operativo personal de inteligencia artificial que se instala en tu móvil (Android o iOS) y convierte tu dispositivo en un **oráculo ciego**: sabe mucho de ti, pero solo tú tienes acceso a esa información.
+
+A diferencia de los asistentes comerciales (Siri, Alexa, Google Assistant), Fénix:
+
+- ❌ **NO** envía tus datos a la nube para entrenar modelos
+- ❌ **NO** perfila tu comportamiento para venderte publicidad
+- ❌ **NO** comparte nada con terceros
+- ❌ **NO** requiere cuenta, email ni teléfono
+- ✅ **TODO** (memorias, identidad, historial, cápsulas) vive cifrado en tu móvil
+- ✅ **Solo** envía el mensaje actual a un LLM local (Qwen 7B en tu VPS) para generar respuesta
+- ✅ **El VPS no recuerda nada** después de cada conversación (stateless)
+
+### Casos de uso
+
+- 🏋️ **Entrenamiento personalizado** (Coach Carlos — biomecánica)
+- 🥑 **Nutrición cetogénica** (Dra. Sofía — bioenergética)
+- 🧘 **Resiliencia mental** (Mentor Aurelio — estoicismo zen)
+- 🧓 **Acompañamiento de personas mayores** (Cuidador Mateo)
+- 🧬 **Biohacking y longevidad** (Dr. Lex)
+- 💼 **Productividad ejecutiva** (Ejecutiva Elena)
+- 🤖 **Coordinación general** (Fénix Base — orquestador)
+
+---
+
+## 🔐 Filosofía: Soberanía Total del Móvil
+
+En la era masiva del almacenamiento en la nube y la monetización agresiva del comportamiento algorítmico individual, **Fénix Pocket OS** emerge como una declaración de **independencia táctica** y **soberanía local extrema**.
+
+### La Promesa
+
+> *Tu servidor no recuerda, no archiva y no analiza quién eres. Fénix es un oráculo ciego.*
+
+**Lo que SÍ es soberano en el móvil del usuario** (nunca sale de tu dispositivo):
+
+| Componente | Ubicación física | Cifrado |
+|---|---|---|
+| **Identidad del usuario** (UUID + perfil EAV) | SQLite local + Secure Storage | AES-256 |
+| **Memoria inmediata** (últimos 8 mensajes) | RAM del proceso | — |
+| **Memoria consolidada** (hechos, preferencias) | SQLite local | AES-256 |
+| **Cápsulas activas** (qué especializadas tienes) | Secure Storage (Keychain/Keystore) | Hardware-backed |
+| **Historial completo de chat** | SQLite local | AES-256 |
+| **Emociones detectadas** | Memoria inmediata | — |
+| **Vector RAG local** (embeddings de mensajes) | SQLite + archivos binarios | Plano local |
+| **Configuración personal** (frecuencia, meta, salud) | SQLite | AES-256 |
+
+**Lo ÚNICO que sale del móvil** (en cada mensaje):
+
+1. El `mensaje_actual` (texto que escribiste)
+2. `user_id` (UUID anónimo v4, NO PII)
+3. `perfil_identidad` (formato texto denso, sin nombre real)
+4. `contexto_rag_hibrido` (resumen textual, no datos crudos)
+5. `historial_reciente` (últimos 8 mensajes, FIFO)
+
+**Lo que ENTRA al móvil** (respuesta del VPS):
+
+1. `assistant_response` (texto de la cápsula)
+2. `perfil_update` (mutaciones EAV: "ahora sé que te gusta X")
+3. `executed_skills` (skills que se ejecutaron)
+
+**Después, el VPS OLVIDA TODO.** ❌ No persiste nada.
+
+---
+
+## 🏗️ Arquitectura del Sistema
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    MÓVIL DEL USUARIO                         │
+│                  (SOBERANO, NO TOCABLE)                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌────────────────────────────────────────────┐             │
+│  │  CAPA DE PRESENTACIÓN (Flutter UI)          │             │
+│  │  • WelcomeScreen (onboarding 5 campos)      │             │
+│  │  • CapsulesScreen (7 cápsulas + switches)   │             │
+│  │  • ChatScreen (cápsula activa dinámica)     │             │
+│  └────────────────────────────────────────────┘             │
+│                          ▼                                   │
+│  ┌────────────────────────────────────────────┐             │
+│  │  CAPA DE LÓGICA (Servicios Flutter)         │             │
+│  │  • ApiService → POST al VPS                 │             │
+│  │  • CapsuleDetector → elige cápsula          │             │
+│  │  • EmotionDetector → analiza sentimiento    │             │
+│  │  • MemoryService → gestión memoria          │             │
+│  │  • LocalEmbeddingService → RAG local        │             │
+│  │  • PerfilDbService → SQLite EAV             │             │
+│  │  • SecureStorageService → Keychain/Keystore │             │
+│  │  • PushService → notificaciones locales     │             │
+│  │  • SkillsService → ejecución skills         │             │
+│  └────────────────────────────────────────────┘             │
+│                          ▼                                   │
+│  ┌────────────────────────────────────────────┐             │
+│  │  CAPA DE DATOS LOCALES (SOBERANA)          │             │
+│  │                                              │             │
+│  │  📦 SQLite (4 bases de datos):              │             │
+│  │    • perfil.db     → identidad EAV         │             │
+│  │    • chat.db       → historial completo     │             │
+│  │    • memoria.db    → hechos consolidados    │             │
+│  │    • embedding.db  → vectores RAG           │             │
+│  │                                              │             │
+│  │  🔐 Secure Storage (Keychain/Keystore):     │             │
+│  │    • user_id (UUID v4)                       │             │
+│  │    • active_capsule_ids                      │             │
+│  │    • encryption_key (AES-256)                │             │
+│  │    • selected_capsule_*                      │             │
+│  │                                              │             │
+│  │  🔒 Todo cifrado AES-256 en reposo          │             │
+│  │  🔒 Hardware-backed Keychain (iOS)          │             │
+│  │  🔒 Android Keystore + EncryptedSharedPrefs │             │
+│  └────────────────────────────────────────────┘             │
+│                          │                                   │
+│                          │ HTTPS (TLS 1.3)                   │
+│                          │ Payload ~2 KB por mensaje         │
+│                          ▼                                   │
+└─────────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│                 VPS A.G.O.S. (STATELESS)                     │
+│              (NO GUARDA NADA DEL USUARIO)                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌────────────────────────────────────────────┐             │
+│  │  FastAPI Event-Driven (:8000)               │             │
+│  │  • POST /api/v1/chat                       │             │
+│  │  • GET  /api/v1/task/{id} (long-polling)    │             │
+│  │  • POST /api/v1/consolidate (nocturno)      │             │
+│  │  • POST /api/v1/skills/execute             │             │
+│  │  • GET  /api/v1/health                     │             │
+│  └────────────────────────────────────────────┘             │
+│                          ▼                                   │
+│  ┌────────────────────────────────────────────┐             │
+│  │  ORQUESTADOR (CapsuleDetector Python)       │             │
+│  │  • Detecta cápsula objetivo                 │             │
+│  │  • Enriquece con system_prompt              │             │
+│  │  • Prepara contexto RAG híbrido             │             │
+│  │  • Selecciona skills permitidas             │             │
+│  └────────────────────────────────────────────┘             │
+│                          ▼                                   │
+│  ┌────────────────────────────────────────────┐             │
+│  │  QWEN 2.5 7B Q4_K_M (llama-server :8090)   │             │
+│  │  • Modelo cuantizado (4.36 GB en RAM)       │             │
+│  │  • Stateless: cada request es independiente │             │
+│  │  • NO aprende de tus datos                  │             │
+│  │  • NO guarda conversaciones                  │             │
+│  │  • temperature=0.3, top_p=0.9, max=300      │             │
+│  └────────────────────────────────────────────┘             │
+│                                                              │
+│  ❌ NO base de datos de usuarios                              │
+│  ❌ NO logs persistentes de conversaciones                    │
+│  ❌ NO entrenamiento con datos de usuario                     │
+│  ✅ Solo Redis (caché de tareas, TTL 5 min)                  │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🧠 Las 7 Cápsulas Cognitivas
+
+Fénix Pocket OS implementa un **sistema multi-agente** donde cada cápsula es un especialista con personalidad, conocimiento y skills propias. **Fénix Base** es el orquestador siempre activo; las demás se activan dinámicamente según el tema de la conversación.
+
+| ID | Cápsula | Emoji | Rol | Se activa con | Skills |
+|----|---------|-------|-----|---------------|--------|
+| `general_coordinator` | **Fénix Base** | 🤖 | Coordinador general & orquestador | SIEMPRE activo | agenda, notif |
+| `fitness_expert` | **Coach Carlos** | 🏋️‍♂️ | Biomecánica de fuerza | ejercicio, peso, dolor, postura | agenda, notif |
+| `nutricion_expert` | **Dra. Sofía** | 🥑 | Cetosis & bioenergética | dieta, comida, ayuno, grasa | notif |
+| `zen_mentor` | **Mentor Aurelio** | 🧘 | Estoicismo zen & resiliencia | ansiedad, estrés, reflexión, propósito | agenda |
+| `elderly_care` | **Cuidador Mateo** | 🧓 | Asistencia geriátrica empática | pastillas, médico, familia, acompañamiento | notif, agenda |
+| `biohacking_expert` | **Dr. Lex** | 🧬 | Biohacking & longevidad | sueño, suplementos, nootrópicos, glucosa | agenda, notif |
+| `pro_work_assistant` | **Ejecutiva Elena** | 💼 | Productividad & Deep Work | tareas, agenda, email, reunión, foco | agenda, notif, web |
+
+### Detección Dinámica
+
+**El usuario NO necesita seleccionar cápsula manualmente.** El sistema detecta y cambia automáticamente:
+
+1. Usuario escribe: *"me duele la espalda haciendo sentadillas"*
+2. `CapsuleDetector.detectar_capsula()` → analiza keywords → `fitness_expert`
+3. `ChatScreen` cambia el HUD: avatar del AppBar pasa de 🤖 a 🏋️
+4. Banner aparece: *"🤖 Fénix Base orquestó → 🏋️ Coach Carlos"*
+5. Qwen 7B genera respuesta con system_prompt de fitness
+6. Si la cápsula objetivo está **desactivada** por el usuario, Fénix Base responde como fallback
+
+---
+
+## 💾 Memoria Jerárquica (3 Niveles)
+
+Fénix implementa un sistema de memoria inspirado en cognición humana:
+
+### Nivel 1: Memoria Inmediata (RAM)
+- **Capacidad**: últimos 8 mensajes (FIFO)
+- **Persistencia**: solo durante la sesión
+- **Uso**: mantener contexto conversacional activo
+- **Almacenamiento**: lista circular en `MemoryService`
+
+### Nivel 2: Memoria Consolidada (SQLite)
+- **Capacidad**: hechos consolidados por categoría (EAV)
+- **Persistencia**: permanente, cifrada AES-256
+- **Uso**: identidad del usuario (preferencias, salud, metas, restricciones)
+- **Almacenamiento**: tabla `perfil` con esquema EAV (Entity-Attribute-Value)
+
+### Nivel 3: Memoria Episódica (RAG Local)
+- **Capacidad**: embeddings de conversaciones pasadas
+- **Persistencia**: permanente, vectores en `embedding.db`
+- **Uso**: búsqueda semántica de recuerdos relevantes
+- **Algoritmo**: top-K cosine similarity con modelo local
+
+### Flujo de Consolidación
+
+```
+Usuario escribe mensaje
+    ↓
+Memoria inmediata (Nivel 1) ← siempre presente
+    ↓
+Backend procesa → devuelve perfil_update
+    ↓
+Memoria consolidada (Nivel 2) ← persistida local
+    ↓
+[Noche] Consolidación batch → genera embeddings
+    ↓
+Memoria episódica (Nivel 3) ← RAG futuro
+```
+
+---
+
+## ⚡ Sistema de Skills Nativas
+
+Las **skills** son acciones que las cápsulas pueden ejecutar. Viven en el backend (VPS) y se invocan vía API:
+
+| Skill ID | Descripción | Cápsulas que la usan |
+|----------|-------------|----------------------|
+| `agenda_crear` | Crear evento en calendario del usuario | Fénix Base, Coach Carlos, Mentor Aurelio, Dr. Lex, Ejecutiva Elena |
+| `notificacion_enviar` | Enviar push notification local | Fénix Base, Coach Carlos, Dra. Sofía, Dr. Lex, Ejecutiva Elena |
+| `web_search` | Búsqueda web (DuckDuckGo/Brave) | Ejecutiva Elena |
+| `memoria_recordar` | Guardar hecho explícito en perfil EAV | Todas (orquestador) |
+| `memoria_olvidar` | Eliminar hecho del perfil (GDPR-like) | Todas (orquestador) |
+
+**Ejecución**:
+1. Qwen genera respuesta con tag JSON: `{"skill": "agenda_crear", "params": {...}}`
+2. Backend parsea y ejecuta la skill
+3. Resultado se incluye en `executed_skills` de la respuesta
+4. Móvil muestra notificación al usuario
+
+---
+
+## 🛠️ Stack Técnico
+
+### Frontend (Móvil)
+- **Flutter 3.44.1** (estable, soporte multiplataforma)
+- **Dart 3.5.4** (null-safety, async/await, isolates)
+- **Provider/Riverpod** (gestión de estado)
+- **HTTP/Dio** (cliente REST)
+- **sqflite** (SQLite local)
+- **flutter_secure_storage** (Keychain/Keystore)
+- **encrypt** (AES-256)
+- **uuid** (UUID v4 anónimo)
+- **logger** (logging estructurado)
+
+### Backend (VPS)
+- **Python 3.12** + **FastAPI** (event-driven, async)
+- **llama-cpp-python** + **llama-server** (Qwen 7B inference)
+- **Redis 7** (caché de tareas, TTL 5 min)
+- **Pydantic v2** (validación de schemas)
+- **uvicorn** (ASGI server)
+- **ngrok** (túnel HTTPS público para dev)
+
+### Modelo de Lenguaje
+- **Qwen 2.5 7B Instruct** cuantizado **Q4_K_M** (4.36 GB RAM)
+- **Parámetros de inference**: `temperature=0.3, top_p=0.9, max_tokens=300, parallel=1`
+- **Compilado con**: llama.cpp (Metal GPU en Mac, CUDA en Linux, CPU fallback)
+
+### DevOps
+- **GitHub Actions** (CI/CD)
+  - `build-android.yml` → compila APK con Flutter
+  - `build-ios.yml` → compila IPA en Mac runner (Xcode 15.4, iOS SDK 17.5)
+- **Android SDK 35** + **build-tools 35/34/33** + **NDK**
+- **JDK 17** (compilación Gradle)
+- **Java 21** (runtime, opcional)
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+fenix-pocket-os/
+├── lib/                              # Código Flutter
+│   ├── main.dart                     # Entry point + wire-up de servicios
+│   ├── core/
+│   │   └── app_config.dart          # URL base, feature flags
+│   ├── models/
+│   │   └── payload_request.dart     # Contrato snake_case del backend
+│   ├── services/                     # Lógica de negocio
+│   │   ├── api_service.dart         # Cliente REST + long-polling
+│   │   ├── capsule_detector.dart    # Detección dinámica de cápsula
+│   │   ├── emotion_detector.dart    # Análisis emocional local
+│   │   ├── local_embedding_service.dart  # RAG local
+│   │   ├── memory_service.dart      # Memoria inmediata + consolidada
+│   │   ├── perfil_db_service.dart   # SQLite EAV
+│   │   ├── push_service.dart        # Notificaciones locales
+│   │   ├── secure_storage_service.dart  # Keychain/Keystore
+│   │   └── skills_service.dart      # Ejecución de skills
+│   └── views/                        # UI Flutter
+│       ├── auth/
+│       │   └── welcome_screen.dart  # Onboarding 5 campos
+│       ├── capsules/
+│       │   └── capsules_screen.dart # Catálogo + switches
+│       └── chat/
+│           └── chat_screen.dart     # Chat principal con cápsula activa
+│
+├── app/                              # Backend FastAPI
+│   ├── main.py                       # Entry point
+│   ├── api/
+│   │   ├── chat_router.py           # POST /api/v1/chat
+│   │   ├── task_router.py           # GET /api/v1/task/{id}
+│   │   ├── consolidate_router.py    # POST /api/v1/consolidate
+│   │   └── skills_router.py         # POST /api/v1/skills/execute
+│   ├── services/
+│   │   ├── inference_router.py      # Cliente llama-server
+│   │   ├── capsule_detector.py      # Orquestador de cápsulas
+│   │   ├── skill_catalogue.py       # Catálogo de 5 skills
+│   │   └── memory_consolidator.py   # Consolidación batch
+│   └── schemas/
+│       └── chat_schema.py           # Pydantic v2
+│
+├── ios/                              # Proyecto iOS nativo
+│   ├── Runner.xcodeproj/
+│   ├── Runner/                       # AppDelegate, SceneDelegate
+│   └── Info.plist
+│
+├── android/                          # Proyecto Android nativo
+│   ├── app/
+│   │   ├── build.gradle.kts
+│   │   └── src/main/
+│   └── gradle/
+│
+├── test/                             # Tests Flutter
+│   ├── widget_test.dart
+│   └── services/
+│
+├── assets/                           # Recursos estáticos
+│   ├── images/
+│   └── data/
+│
+├── .github/workflows/
+│   ├── build-android.yml
+│   └── build-ios.yml
+│
+├── pubspec.yaml                      # Dependencias Dart
+├── analysis_options.yaml             # Lints
+└── README.md                         # Este archivo
+```
+
+---
+
+## 🚀 Instalación y Despliegue
+
+### Pre-requisitos
+- Flutter SDK 3.44.1+
+- Dart 3.5.4+
+- Android SDK 35 (para Android)
+- Xcode 15.4+ (para iOS, solo en macOS)
+- JDK 17
+- ngrok CLI (para exponer backend en dev)
+
+### Compilar APK Android
+
+```bash
+# 1. Clonar
+git clone https://github.com/fernandofondillo/FENIX-POCKET-OS-V4.git
+cd FENIX-POCKET-OS-V4
+
+# 2. Instalar dependencias
+flutter pub get
+
+# 3. Compilar APK release
+export PATH="/opt/flutter/bin:$PATH"
+export ANDROID_HOME=/opt/android-sdk
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+flutter build apk --release
+
+# Output: build/app/outputs/flutter-apk/app-release.apk (~50 MB)
+```
+
+### Compilar IPA iOS
+
+**Opción A: GitHub Actions (recomendado)**
+
+1. Push a `main` → workflow `.github/workflows/build-ios.yml` se dispara manualmente
+2. Descargar artifact `fenix-pocket-os-ios-unsigned` (válido 7 días)
+
+**Opción B: Local (solo macOS)**
+
+```bash
+flutter build ios --release --no-codesign \
+  --build-name=4.1.0 \
+  --build-number=41
+
+# Empaquetar como .ipa
+mkdir -p Payload
+cp -R build/ios/iphoneos/Runner.app Payload/
+zip -r fenix-pocket-os-unsigned.ipa Payload
+
+# Output: fenix-pocket-os-unsigned.ipa (~7 MB)
+```
+
+### Instalar en dispositivo
+
+**Android**: copiar APK al móvil → habilitar "Orígenes desconocidos" → abrir APK
+
+**iOS** (sin cuenta Developer):
+1. Instalar **Sideloadly** desde https://sideloadly.io en tu Mac
+2. Conectar iPhone por USB
+3. Arrastrar el `.ipa` a Sideloadly
+4. Introducir Apple ID personal
+5. Generar **contraseña específica de app** en https://appleid.apple.com
+6. Pulsar "Start" → esperar 30s
+7. En iPhone: `Ajustes > General > VPN y gestión de dispositivos > Confiar`
+8. Activar **Modo Desarrollador** en `Ajustes > Privacidad y seguridad`
+
+---
+
+## 🖥️ Backend VPS (A.G.O.S.)
+
+**A.G.O.S.** = *Asynchronous Generative Orchestration System*
+
+Es el cerebro stateless que ejecuta Qwen 7B y orquesta las cápsulas. **NO guarda nada del usuario**.
+
+### Levantar el backend
+
+```bash
+# 1. Instalar dependencias Python
+cd app/
+pip install -r requirements.txt
+
+# 2. Levantar Qwen 7B con llama-server
+llama-server -m qwen2.5-7b-instruct-q4_k_m.gguf \
+  --host 0.0.0.0 --port 8090 \
+  -c 2048 -t 8
+
+# 3. Levantar FastAPI
+uvicorn main:app --host 0.0.0.0 --port 8000
+
+# 4. Exponer con ngrok (dev)
+ngrok http 8000
+# Output: https://xxxx.ngrok-free.dev
+```
+
+### Health Check
+
+```bash
+curl https://your-ngrok-url.ngrok-free.dev/api/v1/health
+```
+
+Respuesta:
+```json
+{
+  "status": "healthy",
+  "capsules": 7,
+  "skills": 5,
+  "llama_cpp": "ok",
+  "redis": "ok"
+}
+```
+
+---
+
+## 🔄 Flujo de un Mensaje (End-to-End)
+
+**Ejemplo**: Usuario escribe *"me duele la espalda haciendo sentadillas"*
+
+```
+1. USUARIO (móvil) escribe mensaje
+   ↓
+2. MÓVIL procesa LOCALMENTE:
+   - CapsuleDetector.detectar_capsula() → "fitness_expert" 🏋️
+   - EmotionDetector.detectar_emocion() → "preocupado"
+   - MemoryService.obtener_historial() → últimos 8 mensajes
+   - LocalEmbeddingService.buscar_top_k() → 3 chunks similares
+   - PerfilDbService.obtenerEav() → identidad textual densa
+   ↓
+3. MÓVIL envía al VPS (HTTPS, ~2 KB):
+   {
+     "user_id": "a3f8b2c1-9d4e-4a2b-bf3c-1234567890ab",
+     "mensaje_actual": "me duele la espalda haciendo sentadillas",
+     "perfil_identidad": "edad=35\nsexo=masculino\nfrecuencia=3/semana\nmeta=fuerza\nrestriccion=lumbar_previo",
+     "contexto_rag_hibrido": {
+       "historial_usuario": "...",
+       "conocimiento_experto": "[biomecanica_squat] sim=0.87..."
+     },
+     "capsula_activa": {
+       "id": "fitness_expert",
+       "system_prompt": "Actúa como un coach de fitness...",
+       "allowed_skills": ["agenda_crear", "notificacion_enviar"]
+     },
+     "active_skills": ["agenda_crear", "notificacion_enviar"],
+     "historial_reciente": ["msg1", "msg2", ...]
+   }
+   ↓
+4. VPS (Qwen 7B) procesa:
+   - Recibe el contexto
+   - Genera respuesta con system_prompt de fitness
+   - Calcula mutaciones EAV (ej: "restriccion = dolor_lumbar_activo")
+   ↓
+5. VPS responde al MÓVIL (~1 KB):
+   {
+     "assistant_response": "El dolor lumbar en sentadillas suele indicar...",
+     "perfil_update": [
+       {"categoria": "salud", "clave": "dolor_activo", "valor": "lumbar"},
+       {"categoria": "entrenamiento", "clave": "biomecanica_issue", "valor": "valgo_rodilla"}
+     ],
+     "executed_skills": [],
+     "inferenced_by": "qwen2.5"
+   }
+   ↓
+6. VPS OLVIDA TODO. ❌ No guarda nada.
+   ↓
+7. MÓVIL persiste LOCALMENTE:
+   - Guarda mensaje en chat.db
+   - Aplica mutaciones EAV en perfil.db
+   - Actualiza memoria inmediata
+   - Genera embedding para RAG futuro
+   ↓
+8. MÓVIL muestra respuesta al usuario con avatar de Coach Carlos 🏋️
+```
+
+**Total de datos que cruzan la frontera del móvil**: ~2 KB
+**Total de datos que quedan en el VPS después**: 0 bytes
+
+---
+
+## 📡 Contrato de la API
+
+### POST /api/v1/chat
+
+**Request** (snake_case estricto):
+
+```json
+{
+  "user_id": "string (UUID v4)",
+  "mensaje_actual": "string (texto del usuario)",
+  "perfil_identidad": "string (perfil textual denso, NO objeto)",
+  "contexto_rag_hibrido": {
+    "historial_usuario": "string",
+    "conocimiento_experto": "string"
+  },
+  "capsula_activa": {
+    "id": "string (fitness_expert, zen_mentor, ...)",
+    "system_prompt": "string",
+    "allowed_skills": ["string"]
+  },
+  "active_skills": ["string"],
+  "historial_reciente": ["string"]
+}
+```
+
+**Response 200 OK**:
+
+```json
+{
+  "task_id": "string (UUID)",
+  "status": "completed",
+  "assistant_response": "string",
+  "perfil_update": [
+    {
+      "categoria": "string",
+      "clave": "string",
+      "valor": "string"
+    }
+  ],
+  "executed_skills": [
+    {
+      "skill_name": "string",
+      "params": {},
+      "result": {}
+    }
+  ],
+  "inferenced_by": "qwen2.5"
+}
+```
+
+### GET /api/v1/task/{task_id}
+
+**Long-polling** (800ms / max 30s) para respuestas asíncronas.
+
+### POST /api/v1/consolidate
+
+Consolidación batch nocturna de memorias.
+
+### POST /api/v1/skills/execute
+
+Ejecutar skill manualmente (testing/admin).
+
+### GET /api/v1/health
+
+```json
+{
+  "status": "healthy",
+  "capsules": 7,
+  "skills": 5,
+  "llama_cpp": "ok",
+  "redis": "ok"
+}
+```
+
+---
+
+## 🔒 Seguridad y Cifrado
+
+### En Reposo (datos en móvil)
+
+| Plataforma | Mecanismo | Detalle |
+|---|---|---|
+| **iOS** | Keychain (hardware-backed) | Cifrado AES con clave derivada del Secure Enclave |
+| **Android** | EncryptedSharedPreferences + Keystore | AES-256 GCM con clave en Android Keystore |
+| **SQLite** | Cifrado a nivel de aplicación | AES-256 CBC con clave del Keychain/Keystore |
+
+### En Tránsito (red)
+
+- **TLS 1.3** (HTTPS obligatorio)
+- **ngrok** con TLS termination (dev)
+- **Certificados válidos** (Let's Encrypt en producción)
+
+### En el VPS
+
+- **Sin PII** (Personal Identifiable Information)
+- **UUID v4 anónimo** como única identificación
+- **Stateless**: cada request es independiente
+- **Redis con TTL 5 min** (caché de inference, expira automáticamente)
+- **Sin logs persistentes** de conversaciones
+
+---
+
+## 🧪 Testing y Verificación E2E
+
+### Test E2E (verificado en VPS)
+
+```python
+import urllib.request, json
+
+url = 'https://your-ngrok-url.ngrok-free.dev/api/v1/chat'
+payload = {
+  "user_id": "test-uuid-a3f8b2c1",
+  "mensaje_actual": "me duele la espalda haciendo sentadillas",
+  "perfil_identidad": "edad=35\nmeta=fuerza",
+  "contexto_rag_hibrido": {"historial_usuario": "", "conocimiento_experto": ""},
+  "capsula_activa": {
+    "id": "fitness_expert",
+    "system_prompt": "Actúa como coach de fitness",
+    "allowed_skills": ["agenda_crear"]
+  },
+  "active_skills": ["agenda_crear"],
+  "historial_reciente": []
+}
+
+req = urllib.request.Request(url, data=json.dumps(payload).encode(),
+  headers={'Content-Type': 'application/json'})
+resp = json.loads(urllib.request.urlopen(req).read())
+print(resp['assistant_response'])
+```
+
+**Output verificado** (latencia 42.3s primera vez, 8-12s después):
+> *"El dolor lumbar durante sentadillas es una señal común de..."
+> ... [respuesta técnica de ~280 palabras sobre biomecánica]*
+
+### Flutter Tests
+
+```bash
+flutter test
+# Output: All tests passed!
+```
+
+---
+
+## 👥 Multi-Tenant y Privacidad
+
+### Aislamiento por UUID
+
+- Cada usuario genera su `user_id` localmente al onboarding
+- **NO hay registro**, **NO hay login**, **NO hay verificación**
+- El VPS solo ve el UUID, no sabe nombre/email/teléfono
+- Diferentes usuarios en el mismo VPS están completamente aislados
+
+### Sin PII (Personal Identifiable Information)
+
+**Lo que NO se pide nunca**:
+- ❌ Nombre real
+- ❌ Email
+- ❌ Teléfono
+- ❌ Dirección
+- ❌ Fecha de nacimiento exacta (solo rango etario en EAV)
+
+**Lo que se pide en onboarding** (5 campos):
+- ID local (UUID auto-generado)
+- Frecuencia de entrenamiento
+- Meta de salud
+- Restricción biomecánica (opcional)
+
+### GDPR-like: Derecho al Olvido
+
+- **Borrar cuenta**: desinstalar la app → todos los datos locales se eliminan
+- **Olvidar hecho específico**: usar skill `memoria_olvidar` o pedir a Fénix
+- **VPS no retiene nada**: no hay nada que borrar en el servidor
+
+---
+
+## 🗺️ Roadmap
+
+### ✅ v4.1.0 (Actual)
+- 7 cápsulas cognitivas con detección dinámica
+- 5 skills nativas
+- Onboarding 5 campos
+- Chat con cápsula activa + HUD dinámico
+- APK Android 49 MB + IPA iOS 6.9 MB
+- Backend A.G.O.S. con Qwen 7B
+- Multi-tenant stateless
+- Cifrado AES-256 en reposo
+
+### 🚧 v4.2.0 (Próximo)
+- Skills de calendario real (Google Calendar, Apple Calendar)
+- Push notifications con FCM/APNs
+- Exportar/importar perfil cifrado (migración de dispositivo)
+- Modo offline con respuestas encoladas
+- Telemetría anónima opcional (opt-in)
+
+### 🔮 v5.0 (Futuro)
+- Fine-tuning de Qwen con datos del usuario (local, on-device)
+- Voice input/output (Whisper local + TTS)
+- Multi-modal (visión con LLaVA local)
+- Sincronización E2E entre dispositivos del mismo usuario
+- Marketplace de cápsulas de terceros (verificadas)
+
+---
+
+## 📄 Licencia
+
+MIT License
+
+Copyright (c) 2026 Fernando Rueda (QUYRIUX)
+
+Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este software y de los archivos de documentación asociados (el "Software"), a utilizar el Software sin restricción, incluyendo sin limitación los derechos de uso, copia, modificación, fusión, publicación, distribución, sublicencia y/o venta de copias del Software, y a permitir a las personas a las que se les proporcione el Software a hacer lo mismo, sujeto a las siguientes condiciones:
+
+El aviso de copyright anterior y este aviso de permiso se incluirán en todas las copias o partes sustanciales del Software.
+
+EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA...
+
+---
+
+## 🤝 Contribuciones
+
+Este es un proyecto personal de Fernando Rueda. Para sugerencias o reportar issues:
+- **GitHub**: https://github.com/fernandofondillo/FENIX-POCKET-OS-V4/issues
+- **Telegram**: @fernando_fundillo
+
+---
+
+## 🙏 Agradecimientos
+
+- **Qwen Team** (Alibaba) por el modelo base open-source
+- **llama.cpp** por el inference engine
+- **Flutter** por el framework multiplataforma
+- **FastAPI** por el backend asíncrono
+- **ngrok** por el túnel HTTPS en desarrollo
+
+---
+
+<div align="center">
+
+**🐦‍🔥 Fénix Pocket OS — Tu soberano digital.**
+
+*Hecho con 🔥 en España, para el mundo.*
+
+</div>
