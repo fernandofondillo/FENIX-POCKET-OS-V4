@@ -1,30 +1,27 @@
 // lib/core/app_config.dart
-import 'dart:io';
-
+/// Configuración central de URLs de Fénix Pocket OS V4
 class AppConfig {
-  /// Devuelve la URL base del backend FastAPI.
-  /// Modifica esta IP con la tuya propia en tu red WiFi para pruebas con 
-  /// dispositivos físicos (iPhone real o Android real). Ej: 'http://192.168.1.50:8000'
-  static String get apiBaseUrl {
-    // Si estás usando un iPhone/Android Real, cambia `const String customIp` por tu IP.
-    const String customIp = 'http://192.168.1.50:8000'; // <- MODIFICA ESTO
-    const bool usePhysicalIp = false; // Cambia a `true` si usas dispositivo real.
+  /// URL del backend FastAPI (VPS A.G.O.S.) expuesto vía ngrok
+  /// Esta URL se mantiene activa mientras el VPS reporte túnel ngrok abierto.
+  /// En producción real con dominio propio, cambiar a HTTPS.
+  static const String apiBaseUrl = 'https://roguish-degradedly-anjelica.ngrok-free.dev';
 
-    if (usePhysicalIp) {
-      return customIp;
-    }
+  /// Versión del contrato de payload
+  static const String apiVersion = 'v1';
 
-    try {
-      if (Platform.isAndroid) {
-         // Emulador Android
-        return 'http://10.0.2.2:8000';
-      } else if (Platform.isIOS) {
-        // Simulador iOS
-        return 'http://127.0.0.1:8000';
-      }
-    } catch (_) {
-        // Fallback Web o no soportado
-    }
-    return 'http://127.0.0.1:8000'; // Default (localhost)
-  }
+  /// Identificador único de plataforma
+  static const String platformId = 'fenix_pocket_os_v4';
+
+  /// Modelo LLM que escucha el VPS
+  static const String llmModel = 'Qwen2.5-7B-Instruct-Q4_K_M';
+
+  /// Timeouts (en segundos)
+  static const int chatTimeoutSeconds = 45;
+  static const int pollingIntervalMs = 800;
+  static const int skillsTimeoutSeconds = 30;
+
+  /// Tamaños máximos de payload
+  static const int maxHistoryMessages = 8;
+  static const int maxRagContextChars = 400;
+  static const int maxIdentityChars = 800;
 }

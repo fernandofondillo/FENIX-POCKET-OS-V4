@@ -32,4 +32,16 @@ class PerfilDbService {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  /// Recupera toda la identidad EAV como Map<String, String>
+  /// Utilizado para inyectar contexto al payload del VPS.
+  Future<Map<String, String>?> obtenerEavComoMap() async {
+    if (_db == null) await initDb();
+    final records = await _db!.query('eav_data');
+    final result = <String, String>{};
+    for (final r in records) {
+      result[r['clave'] as String] = r['valor'] as String;
+    }
+    return result;
+  }
 }
